@@ -58,3 +58,11 @@ body{background:#f3eff3}
 .calc-result{background:#f8f3fa;border-radius:12px;padding:13px;color:#685477;line-height:1.6;min-height:48px}
 .study-progress{background:#fffafd;border:1px solid #f0e3f0;border-radius:18px;padding:20px}
 @media(max-width:760px){.flash-controls,.calculator-grid{grid-template-columns:1fr}.flashcard{min-height:230px;padding:24px}.flash-actions{gap:9px}}
+/* Functional flashcard presentation */
+.flashcard.is-flipped{background:linear-gradient(135deg,#f1fbf6,#f8f2ff);border-color:#d8c9e8}
+.flash-card-meta{font-size:12px;color:#927fa0;letter-spacing:.02em}
+.flash-card-label{font-size:13px;color:#9a83a8}
+.flash-card-hint{font-size:12px;color:#927fa0;margin-top:4px}
+.flashcard strong{max-width:650px}
+.calc-result b{display:block;margin-bottom:5px;color:#59436e}
+.calculator-card input:focus,.flash-controls select:focus{outline:2px solid #cdb5df;outline-offset:1px}

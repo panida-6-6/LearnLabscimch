@@ -34,7 +34,7 @@ const LESSON_EXTRA = {
 'math-matrix':[{h:'5. การคูณเมทริกซ์และมิติ',p:'เมทริกซ์ A ขนาด m×n คูณ B ขนาด n×p ได้ผลลัพธ์ขนาด m×p จำนวนคอลัมน์ของตัวหน้า ต้องเท่ากับจำนวนแถวของตัวหลัง การคูณไม่สลับลำดับได้ทั่วไป',list:['ตรวจมิติทุกครั้งก่อนคูณ','คำนวณแต่ละช่องจากผลคูณแถวกับหลัก','เมทริกซ์เอกลักษณ์ทำหน้าที่คล้ายเลข 1 ในการคูณ']},{h:'6. เมทริกซ์กับระบบสมการ',p:'เมทริกซ์ช่วยจัดสัมประสิทธิ์ของระบบสมการและใช้วิธีดำเนินการแถวเพื่อหาคำตอบ เมื่อเมทริกซ์สัมประสิทธิ์มีอินเวอร์ส อาจใช้ A⁻¹b เพื่อแก้ระบบ Ax=b ได้',example:'เขียนตัวแปรและลำดับคอลัมน์ให้ตรงกันทุกสมการก่อนจัดเป็นเมทริกซ์ เพื่อป้องกันการสลับสัมประสิทธิ์'}]
 };
 
-function openLesson(id){currentLesson=LESSONS.find(l=>l.id===id);if(!currentLesson)return;const l=currentLesson;currentSubject=l.subject;location.hash='lesson';$('#lessonDetail').innerHTML=`<div class="lesson-hero"><span class="tag ${l.subject==='science'?'tag-pink':'tag-purple'}">${l.category} · ${l.level}</span><h1>${l.title}</h1><p>${l.desc}</p><p style="margin-top:10px">♡ เวลาอ่านประมาณ ${l.time}</p></div><section class="lesson-section lesson-videos"><h2>▶ วิดีโอประกอบบทเรียน</h2><p>เปิดค้นหาคลิป YouTube ที่ตรงกับหัวข้อนี้เพื่อดูคำอธิบายเพิ่มเติม</p><div class="lesson-video-links">${l.sections.map(s=>`<a class="video-link-card" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent('สอน '+l.title+' '+s.h+' '+l.level+' ภาษาไทย')}"><b>▶ ${s.h.replace(/^\d+\.\s*/, '')}</b><small>ค้นหาคลิป YouTube เกี่ยวกับหัวข้อนี้ ↗</small></a>`).join('')}</div><a class="video-search-all" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent('สอน '+l.title+' '+l.level+' สรุปบทเรียน ภาษาไทย')}">ค้นหาคลิปทั้งบทบน YouTube ↗</a></section><div class="lesson-layout"><div class="lesson-body"><section class="lesson-section"><h2>🎯 จุดประสงค์การเรียนรู้</h2><ul>${l.goals.map(x=>`<li>${x}</li>`).join('')}</ul></section>${[...l.sections,...(LESSON_EXTRA[l.id]||[])].map((s,i)=>`<section class="lesson-section" id="sec${i}"><h2>${s.h}</h2>${s.p?`<p>${s.p}</p>`:''}${s.sub?`<h3 class="section-sub">${s.sub}</h3>`:''}${s.p2?`<p>${s.p2}</p>`:''}${s.list?`<ul>${s.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${s.formula?`<div class="formula-box">${s.formula.replaceAll('\n','<br>')}</div>`:''}${s.example?`<div class="example-box"><b>ตัวอย่างพร้อมวิธีคิด</b><p>${s.example}</p></div>`:''}${s.callout?`<div class="callout">💡 ${s.callout}</div>`:''}</section>`).join('')}<section class="lesson-section"><h2>🔎 เชื่อมโยงและต่อยอด</h2><p>ลองเชื่อมโยงเรื่อง <b>${l.title}</b> กับสถานการณ์จริงรอบตัว โดยใช้หัวข้อย่อยต่อไปนี้เป็นแนวทางตั้งคำถามและค้นคว้าเพิ่มเติม</p><ul>${l.sections.map(s=>`<li><b>${s.h.replace(/^\d+\.\s*/, '')}</b> — ลองอธิบายแนวคิดนี้ด้วยภาษาของตัวเอง พร้อมยกตัวอย่างจากชีวิตประจำวัน</li>`).join('')}</ul><div class="callout">แนวทางฝึก: อ่านทีละหัวข้อ → สรุปใจความ 2–3 ประโยค → ลองทำโจทย์หรือยกตัวอย่างใหม่โดยไม่ดูเฉลย</div></section><section class="lesson-section extension-panel"><h2>🌱 ตัวอย่างการนำไปใช้ / ฝึกคิดต่อ</h2><p>${lessonExtensions[l.id]||`ลองนำเรื่อง ${l.title} ไปอธิบายจากตัวอย่างรอบตัว แล้วตรวจสอบคำอธิบายโดยกลับไปดูแนวคิดหลักในบทเรียน`}</p><p class="muted">คำถามฝึกคิด: ถ้าปรับเงื่อนไขหรือข้อมูลที่โจทย์ให้มา จะทำให้ผลลัพธ์หรือคำอธิบายเปลี่ยนไปอย่างไร?</p></section><section class="lesson-section"><h2>🧠 เทคนิคช่วยจำ</h2><div class="memory-box">${l.memory}</div></section><section class="lesson-section"><h2>📌 สรุปท้ายบท</h2><ul>${l.summary.map(x=>`<li>${x}</li>`).join('')}</ul></section><section class="lesson-section"><h2>⚠️ จุดที่มักพลาดในข้อสอบ</h2><ul>${l.mistakes.map(x=>`<li>${x}</li>`).join('')}</ul></section><section class="lesson-section study-progress"><h2>🌷 บันทึกความคืบหน้า</h2><p>ทำเครื่องหมายเมื่ออ่านและทบทวนบทนี้เสร็จ เพื่อกลับมาติดตามการเรียนได้</p><button class="quiz-submit" id="markLessonDone" type="button">บันทึกว่าเรียนบทนี้แล้ว ✓</button> <a class="quiz-submit" style="background:#9d8cba;display:inline-block;text-decoration:none" href="#flashcards" onclick="sessionStorage.setItem('learnlab-flash-lesson','${l.id}')">ทบทวนด้วยบัตรคำ →</a><p class="tiny-note" id="lessonProgressMsg"></p></section><section class="lesson-section"><h2>✎ ทบทวนความเข้าใจ</h2><p>เมื่ออ่านจบแล้ว ลองทำแบบทดสอบหลังเรียนเพื่อเช็กความเข้าใจและดูคำอธิบายเฉลย</p><button class="quiz-submit" onclick="location.hash='quiz';setTimeout(()=>startQuiz('${l.id}'),100)">ทำแบบทดสอบบทนี้ →</button> <button class="quiz-submit" style="background:#9d8cba" onclick="window.print()">พิมพ์ / บันทึก PDF</button></section></div><aside class="lesson-aside"><h3>ในบทนี้มีอะไรบ้าง</h3>${[...l.sections,...(LESSON_EXTRA[l.id]||[])].map((s,i)=>`<a href="#sec${i}">${s.h}</a>`).join('')}<div class="aside-tip">🌷 ค่อย ๆ อ่านทีละหัวข้อ ลองอธิบายด้วยคำของตัวเอง จะช่วยให้จำได้นานขึ้น</div></aside></div>`}
+function openLesson(id){currentLesson=LESSONS.find(l=>l.id===id);if(!currentLesson)return;const l=currentLesson;currentSubject=l.subject;location.hash='lesson';$('#lessonDetail').innerHTML=`<div class="lesson-hero"><span class="tag ${l.subject==='science'?'tag-pink':'tag-purple'}">${l.category} · ${l.level}</span><h1>${l.title}</h1><p>${l.desc}</p><p style="margin-top:10px">♡ เวลาอ่านประมาณ ${l.time}</p></div><section class="lesson-section lesson-videos"><h2>▶ วิดีโอประกอบบทเรียน</h2><p>คัดเลือกลิงก์ไปยังคลิปวิดีโอโดยตรง กดชื่อคลิปเพื่อเปิดดูบน YouTube</p><div class="lesson-video-links">${(LESSON_VIDEOS[l.id]||[]).map(v=>`<a class="video-link-card" target="_blank" rel="noopener" href="${v.url}"><b>▶ ${v.title}</b><small>แหล่งวิดีโอ: ${v.source} · เปิดคลิป ↗</small></a>`).join('')||'<div class="callout">บทนี้ยังไม่มีคลิปที่ตรวจสอบลิงก์โดยตรงแล้ว กำลังทยอยเพิ่มคลิปที่ตรงกับเนื้อหา โดยจะไม่ใส่ลิงก์ค้นหาทั่วไปแทนคลิป</div>'}</div></section><div class="lesson-layout"><div class="lesson-body"><section class="lesson-section"><h2>🎯 จุดประสงค์การเรียนรู้</h2><ul>${l.goals.map(x=>`<li>${x}</li>`).join('')}</ul></section>${[...l.sections,...(LESSON_EXTRA[l.id]||[])].map((s,i)=>`<section class="lesson-section" id="sec${i}"><h2>${s.h}</h2>${s.p?`<p>${s.p}</p>`:''}${s.sub?`<h3 class="section-sub">${s.sub}</h3>`:''}${s.p2?`<p>${s.p2}</p>`:''}${s.list?`<ul>${s.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${s.formula?`<div class="formula-box">${s.formula.replaceAll('\n','<br>')}</div>`:''}${s.example?`<div class="example-box"><b>ตัวอย่างพร้อมวิธีคิด</b><p>${s.example}</p></div>`:''}${s.callout?`<div class="callout">💡 ${s.callout}</div>`:''}</section>`).join('')}<section class="lesson-section"><h2>🔎 เชื่อมโยงและต่อยอด</h2><p>ลองเชื่อมโยงเรื่อง <b>${l.title}</b> กับสถานการณ์จริงรอบตัว โดยใช้หัวข้อย่อยต่อไปนี้เป็นแนวทางตั้งคำถามและค้นคว้าเพิ่มเติม</p><ul>${l.sections.map(s=>`<li><b>${s.h.replace(/^\d+\.\s*/, '')}</b> — ลองอธิบายแนวคิดนี้ด้วยภาษาของตัวเอง พร้อมยกตัวอย่างจากชีวิตประจำวัน</li>`).join('')}</ul><div class="callout">แนวทางฝึก: อ่านทีละหัวข้อ → สรุปใจความ 2–3 ประโยค → ลองทำโจทย์หรือยกตัวอย่างใหม่โดยไม่ดูเฉลย</div></section><section class="lesson-section extension-panel"><h2>🌱 ตัวอย่างการนำไปใช้ / ฝึกคิดต่อ</h2><p>${lessonExtensions[l.id]||`ลองนำเรื่อง ${l.title} ไปอธิบายจากตัวอย่างรอบตัว แล้วตรวจสอบคำอธิบายโดยกลับไปดูแนวคิดหลักในบทเรียน`}</p><p class="muted">คำถามฝึกคิด: ถ้าปรับเงื่อนไขหรือข้อมูลที่โจทย์ให้มา จะทำให้ผลลัพธ์หรือคำอธิบายเปลี่ยนไปอย่างไร?</p></section><section class="lesson-section"><h2>🧠 เทคนิคช่วยจำ</h2><div class="memory-box">${l.memory}</div></section><section class="lesson-section"><h2>📌 สรุปท้ายบท</h2><ul>${l.summary.map(x=>`<li>${x}</li>`).join('')}</ul></section><section class="lesson-section"><h2>⚠️ จุดที่มักพลาดในข้อสอบ</h2><ul>${l.mistakes.map(x=>`<li>${x}</li>`).join('')}</ul></section><section class="lesson-section study-progress"><h2>🌷 บันทึกความคืบหน้า</h2><p>ทำเครื่องหมายเมื่ออ่านและทบทวนบทนี้เสร็จ เพื่อกลับมาติดตามการเรียนได้</p><button class="quiz-submit" id="markLessonDone" type="button">บันทึกว่าเรียนบทนี้แล้ว ✓</button> <a class="quiz-submit" style="background:#9d8cba;display:inline-block;text-decoration:none" href="#flashcards" onclick="sessionStorage.setItem('learnlab-flash-lesson','${l.id}')">ทบทวนด้วยบัตรคำ →</a><p class="tiny-note" id="lessonProgressMsg"></p></section><section class="lesson-section"><h2>✎ ทบทวนความเข้าใจ</h2><p>เมื่ออ่านจบแล้ว ลองทำแบบทดสอบหลังเรียนเพื่อเช็กความเข้าใจและดูคำอธิบายเฉลย</p><button class="quiz-submit" onclick="location.hash='quiz';setTimeout(()=>startQuiz('${l.id}'),100)">ทำแบบทดสอบบทนี้ →</button> <button class="quiz-submit" style="background:#9d8cba" onclick="window.print()">พิมพ์ / บันทึก PDF</button></section></div><aside class="lesson-aside"><h3>ในบทนี้มีอะไรบ้าง</h3>${[...l.sections,...(LESSON_EXTRA[l.id]||[])].map((s,i)=>`<a href="#sec${i}">${s.h}</a>`).join('')}<div class="aside-tip">🌷 ค่อย ๆ อ่านทีละหัวข้อ ลองอธิบายด้วยคำของตัวเอง จะช่วยให้จำได้นานขึ้น</div></aside></div>`}
 $('#scienceLevel').onchange=()=>renderLessons('science',$('#scienceFilters .selected').dataset.filter,$('#scienceSearch').value,$('#scienceLevel').value);$('#mathLevel').onchange=()=>renderLessons('math',$('#mathFilters .selected').dataset.filter,$('#mathSearch').value,$('#mathLevel').value);
 // Study progress is stored locally in this browser.
 const PROGRESS_KEY='learnlab-completed-lessons-v2';
@@ -48,9 +48,146 @@ $('#scienceSearch').oninput=e=>renderLessons('science',$('#scienceFilters .selec
 $('#globalSearch').onkeydown=e=>{if(e.key==='Enter'){const q=e.target.value.toLowerCase();const found=LESSONS.find(l=>(l.title+' '+l.desc+' '+l.category).toLowerCase().includes(q));if(found)openLesson(found.id);else toast('ยังไม่พบบทเรียน ลองใช้คำค้นอื่นนะ')}};
 const catNames={alkali:'โลหะแอลคาไล',alkaline:'โลหะแอลคาไลน์เอิร์ท',transition:'โลหะแทรนซิชัน',post:'โลหะหลังทรานซิชัน',metalloid:'กึ่งโลหะ',nonmetal:'อโลหะ',halogen:'แฮโลเจน',noble:'แก๊สมีตระกูล',lanthanide:'แลนทาไนด์',actinide:'แอกทิไนด์'};
 function renderPeriodic(){const grid=$('#periodicGrid');grid.innerHTML=ELEMENTS.map(e=>`<button class="element cat-${e[5]}" style="grid-column:${e[6]};grid-row:${e[7]}" data-z="${e[0]}" title="${e[3]} (${e[2]})"><span class="anum">${e[0]}</span><strong>${e[1]}</strong><small>${e[3]}</small></button>`).join('');$('#periodicLegend').innerHTML=Object.entries(catNames).map(([k,v])=>`<span class="legend-item"><i class="legend-dot cat-${k}"></i>${v}</span>`).join('');grid.onclick=e=>{const b=e.target.closest('[data-z]');if(!b)return;const el=ELEMENTS.find(x=>x[0]===+b.dataset.z);$$('.element').forEach(x=>x.classList.toggle('chosen',x===b));$('#elementDetail').innerHTML=`<span class="detail-symbol cat-${el[5]}">${el[1]}</span><div><b>${el[3]} · ${el[2]}</b><p>เลขอะตอม ${el[0]} · มวลอะตอมโดยประมาณ ${el[4]} u · หมู่ ${el[6]} · คาบ ${el[7]===9?'6 (แลนทาไนด์)':el[7]===10?'7 (แอกทิไนด์)':el[7]}</p><p>ประเภท: ${catNames[el[5]]}</p></div>`}}
-function renderVideoLibrary(filter='all',q=''){const list=LESSONS.filter(l=>(filter==='all'||l.subject===filter)&&(l.title+' '+l.desc+' '+l.category+' '+l.level).toLowerCase().includes(q.toLowerCase()));$('#videoLibrary').innerHTML=list.map(l=>`<article class="video-library-card"><span class="video-subject ${l.subject==='science'?'science':'math'}">${l.category} · ${l.level}</span><h3>${l.title}</h3><p>${l.desc}</p><div class="video-link-list">${l.sections.slice(0,3).map(s=>`<a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent('สอน '+l.title+' '+s.h+' '+l.level+' ภาษาไทย')}">▶ ${s.h.replace(/^\d+\.\s*/, '')}</a>`).join('')}</div><a class="video-search-all" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent('สอน '+l.title+' '+l.level+' สรุปบทเรียน ภาษาไทย')}">ดูคลิปเกี่ยวกับบทนี้บน YouTube ↗</a></article>`).join('')||'<div class="callout">ไม่พบหัวข้อที่ค้นหา</div>'}$('#videoFilters').onclick=e=>{if(e.target.matches('button')){$$('#videoFilters .chip').forEach(x=>x.classList.toggle('selected',x===e.target));renderVideoLibrary(e.target.dataset.filter,$('#videoSearch').value)}};$('#videoSearch').oninput=e=>renderVideoLibrary($('#videoFilters .selected').dataset.filter,e.target.value);
+function renderVideoLibrary(filter='all',q=''){const list=LESSONS.filter(l=>(filter==='all'||l.subject===filter)&&(l.title+' '+l.desc+' '+l.category+' '+l.level).toLowerCase().includes(q.toLowerCase()));$('#videoLibrary').innerHTML=list.map(l=>`<article class="video-library-card"><span class="video-subject ${l.subject==='science'?'science':'math'}">${l.category} · ${l.level}</span><h3>${l.title}</h3><p>${l.desc}</p><div class="video-link-list">${(LESSON_VIDEOS[l.id]||[]).map(v=>`<a target="_blank" rel="noopener" href="${v.url}">▶ ${v.title} ↗</a>`).join('')||'<span class="muted">ยังไม่มีคลิปที่ตรวจสอบลิงก์โดยตรง</span>'}</div></article>`).join('')||'<div class="callout">ไม่พบหัวข้อที่ค้นหา</div>'}$('#videoFilters').onclick=e=>{if(e.target.matches('button')){$$('#videoFilters .chip').forEach(x=>x.classList.toggle('selected',x===e.target));renderVideoLibrary(e.target.dataset.filter,$('#videoSearch').value)}};$('#videoSearch').oninput=e=>renderVideoLibrary($('#videoFilters .selected').dataset.filter,e.target.value);
 function renderFormulas(filter='all',q=''){const list=FORMULAS.filter(f=>(filter==='all'||f.cat===filter)&&(f.title+' '+f.eq+' '+f.desc).toLowerCase().includes(q.toLowerCase()));$('#formulaList').innerHTML=list.map(f=>`<article class="formula-card"><span class="f-cat">${f.cat}</span><h3>${f.title}</h3><div class="f-eq">${f.eq}</div><p>${f.desc}</p></article>`).join('')||'<div class="callout">ไม่พบสูตรที่ค้นหา</div>'}
 $('#formulaFilters').onclick=e=>{if(e.target.matches('button')){$$('#formulaFilters .chip').forEach(x=>x.classList.toggle('selected',x===e.target));renderFormulas(e.target.dataset.filter,$('#formulaSearch').value)}};$('#formulaSearch').oninput=e=>renderFormulas($('#formulaFilters .selected').dataset.filter,e.target.value);
+
+// Add a practical worked-problem workflow to every lesson, tailored by subject.
+LESSONS.forEach(lesson=>{
+ if((lesson.sections||[]).some(sec=>sec.h==='แนวทางคิดและตรวจคำตอบ'))return;
+ let intro,steps,check;
+ if(lesson.subject==='math'){
+  intro=`การทำโจทย์เรื่อง${lesson.title} ควรเริ่มจากการแปลข้อความเป็นสัญลักษณ์หรือความสัมพันธ์ทางคณิตศาสตร์ก่อนเลือกใช้สูตร การเขียนเงื่อนไขให้ชัดจะช่วยลดความผิดพลาดจากการเลือกวิธีที่ไม่ตรงกับโจทย์`;
+  steps=['อ่านโจทย์และวงข้อมูลที่กำหนด พร้อมระบุสิ่งที่ต้องหา','กำหนดตัวแปรและเขียนเงื่อนไขหรือสมบัติที่เกี่ยวข้อง','เลือกสูตร นิยาม หรือทฤษฎีบทที่ตรงกับข้อมูล ไม่แทนค่าสุ่ม ๆ','แสดงการคำนวณหรือการพิสูจน์ทีละบรรทัด เพื่อให้ตรวจย้อนกลับได้','แทนคำตอบกลับไปตรวจเงื่อนไข โดเมน หน่วย และความสมเหตุสมผล'];
+  check='ถ้าได้คำตอบหลายค่า ให้ตรวจทุกค่ากับเงื่อนไขเดิม และอย่าลืมพิจารณาค่าที่ทำให้ตัวส่วนเป็นศูนย์หรือค่าที่อยู่นอกโดเมน';
+ }else if(lesson.category==='เคมี'){
+  intro=`โจทย์เคมีเรื่อง${lesson.title} มักต้องแยกข้อมูลเชิงคำอธิบายออกจากข้อมูลเชิงปริมาณ แล้วเชื่อมโยงกับอนุภาค สูตรเคมี หรือสมการที่เกี่ยวข้อง การใส่หน่วยกำกับทุกขั้นช่วยให้เห็นว่ากำลังแปลงปริมาณชนิดใด`;
+  steps=['ระบุสารหรืออนุภาคที่กล่าวถึง และเขียนสูตรหรือสัญลักษณ์ให้ถูกต้อง','จดค่าที่โจทย์ให้พร้อมหน่วยและสิ่งที่ต้องการหา','เลือกความสัมพันธ์หรือสมการที่ตรงกับสถานการณ์ และดุลสมการก่อนใช้สัดส่วนโมลเมื่อจำเป็น','แปลงหน่วยให้สอดคล้องกันก่อนแทนค่า','ตรวจจำนวนอะตอม ประจุ หน่วย และความสมเหตุสมผลของคำตอบ'];
+  check='อย่าสลับมวลกับจำนวนโมล และอย่าใช้ค่าคงที่หรือเงื่อนไขเฉพาะ เช่น STP โดยไม่ตรวจว่าโจทย์กำหนดเงื่อนไขนั้นจริงหรือไม่';
+ }else if(lesson.category==='ฟิสิกส์'){
+  intro=`การแก้โจทย์ฟิสิกส์เรื่อง${lesson.title} ต้องเข้าใจสถานการณ์ก่อนเลือกสมการ การวาดภาพหรือแผนภาพช่วยให้เห็นทิศทาง แรง และปริมาณที่สัมพันธ์กันได้ชัดเจนกว่าการแทนสูตรทันที`;
+  steps=['อ่านสถานการณ์แล้ววาดภาพหรือแผนภาพอย่างง่าย','แยกข้อมูลที่โจทย์ให้และสิ่งที่ต้องหา พร้อมเขียนหน่วย','กำหนดทิศบวกหรือระบบอ้างอิงให้ชัด โดยเฉพาะปริมาณเวกเตอร์','เลือกกฎหรือสมการที่สอดคล้องกับเงื่อนไขของโจทย์ แล้วแทนค่าอย่างเป็นลำดับ','ตรวจเครื่องหมาย หน่วย และความหมายทางกายภาพของคำตอบ'];
+  check='ตรวจเงื่อนไขก่อนใช้สมการ เช่น ความเร่งคงตัว แรงลัพธ์ หรือการอนุรักษ์ปริมาณ และอย่าลืมว่าค่าบวกหรือลบอาจบอกทิศทาง ไม่ได้บอกว่าดีหรือไม่ดี';
+ }else if(lesson.category==='โลกและอวกาศ'){
+  intro=`การเรียนเรื่อง${lesson.title} ต้องแยกสิ่งที่สังเกตได้ออกจากคำอธิบายของกระบวนการ และพิจารณาหลักฐานในช่วงเวลาและขนาดพื้นที่ที่เหมาะสม`;
+  steps=['ระบุปรากฏการณ์หรือข้อมูลที่โจทย์ให้ เช่น ภาพ แผนที่ กราฟ หรือลำดับเหตุการณ์','แยกข้อเท็จจริงที่สังเกตได้ออกจากข้อสรุปหรือสมมติฐาน','เชื่อมโยงกระบวนการ เหตุ และผลตามลำดับที่สมเหตุสมผล','เปรียบเทียบหลักฐานมากกว่าหนึ่งชนิดก่อนสรุป','ระบุข้อจำกัดของข้อมูล เช่น ช่วงเวลา ความละเอียด หรือปัจจัยแวดล้อม'];
+  check='อย่าใช้เหตุการณ์ระยะสั้นเพียงครั้งเดียวแทนแนวโน้มระยะยาว และอย่าสรุปสาเหตุจากหลักฐานชิ้นเดียว';
+ }else{
+  intro=`การทำความเข้าใจเรื่อง${lesson.title} ควรเชื่อมโยงคำศัพท์ โครงสร้าง และหน้าที่เข้าด้วยกัน ไม่ใช่จำชื่อแยกจากกระบวนการ การอธิบายด้วยแผนภาพหรือลำดับขั้นช่วยให้เห็นความสัมพันธ์ได้ชัด`;
+  steps=['กำหนดคำสำคัญและความหมายของแต่ละคำให้ชัด','จัดกลุ่มองค์ประกอบหรือสิ่งมีชีวิตตามลักษณะร่วม','เรียงลำดับกระบวนการและระบุว่าแต่ละขั้นเกิดอะไรขึ้น','เชื่อมโยงโครงสร้างกับหน้าที่ หรือสาเหตุกับผลที่ตามมา','ยกตัวอย่างและตรวจว่าตัวอย่างนั้นตรงกับหลักการจริง'];
+  check='ระวังการเหมารวมจากตัวอย่างเดียว และแยกคำที่คล้ายกันแต่มีหน้าที่ต่างกันให้ชัดเจน';
+ }
+ lesson.sections.push({h:'แนวทางคิดและตรวจคำตอบ',p:intro,list:steps,callout:check});
+});
+
+// Build a fuller question bank from lesson-specific learning points.
+// Each lesson has 20 pre-test and 20 post-test questions; existing authored questions are retained.
+(function expandQuestionBank(){
+ const existing=new Set(QUESTIONS.map(q=>`${q.lesson}|${q.phase}|${q.q}`));
+ const templates=[
+  (topic)=>`ข้อใดกล่าวถูกต้องเกี่ยวกับ${topic}?`,
+  (topic)=>`เมื่อทบทวนหัวข้อ${topic} ข้อความใดสอดคล้องกับหลักการในบทเรียน?`,
+  (topic)=>`ข้อใดเป็นใจความสำคัญของเรื่อง${topic}?`,
+  (topic)=>`หากนำความรู้เรื่อง${topic} ไปใช้ ข้อใดเป็นคำอธิบายที่ถูกต้อง?`,
+  (topic)=>`นักเรียนควรเข้าใจข้อใดเกี่ยวกับ${topic}?`
+ ];
+ const clean=x=>String(x||'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim().replace(/[。.]$/,'');
+ LESSONS.forEach(lesson=>{
+  const sections=[...(lesson.sections||[]),...(LESSON_EXTRA[lesson.id]||[])];
+  const facts=[];
+  const add=(topic,statement)=>{statement=clean(statement);topic=clean(topic);if(statement.length>18&&topic&& !facts.some(f=>f.statement===statement))facts.push({topic,statement})};
+  (lesson.goals||[]).forEach((x,i)=>add('จุดประสงค์การเรียนรู้',x));
+  sections.forEach(sec=>{
+   if(sec.p)add(sec.h,sec.p.split(/[.!?。]/)[0]);
+   (sec.list||[]).forEach(x=>add(sec.h,x));
+   if(sec.formula)add(sec.h,`ความสัมพันธ์หรือสูตรที่ใช้คือ ${sec.formula.replace(/\n/g,'; ')}`);
+   if(sec.example)add(sec.h,`ตัวอย่างสำคัญ: ${sec.example}`);
+   if(sec.callout)add(sec.h,sec.callout);
+  });
+  (lesson.summary||[]).forEach(x=>add('สรุปท้ายบท',x));
+  (lesson.mistakes||[]).forEach(x=>add('จุดที่มักพลาดในข้อสอบ',x));
+  if(!facts.length)return;
+  ['pre','post'].forEach(phase=>{
+   let current=QUESTIONS.filter(q=>q.lesson===lesson.id&&q.phase===phase).length;
+   for(let i=current;i<20;i++){
+    const f=facts[i%facts.length];
+    const distractors=[];
+    for(let step=1;step<facts.length&&distractors.length<3;step++){
+      const d=facts[(i+step*3)%facts.length].statement;
+      if(d!==f.statement&&!distractors.includes(d))distractors.push(d);
+    }
+    // Ensure four distinct choices even for lessons with short source material.
+    const fallback=[`เป็นแนวคิดที่ไม่เกี่ยวข้องกับ${lesson.title}`,`ไม่จำเป็นต้องพิจารณาเงื่อนไขหรือหน่วยของโจทย์`,`เป็นข้อสรุปที่ขัดกับหลักการของ${lesson.title}`];
+    for(const d of fallback)if(distractors.length<3&&!distractors.includes(d))distractors.push(d);
+    const raw=[f.statement,...distractors.slice(0,3)];
+    const correct=(i*7+ (phase==='post'?2:0))%4;
+    const opts=raw.slice();[opts[0],opts[correct]]=[opts[correct],opts[0]];
+    const topic=phase==='post'?`การประยุกต์เรื่อง${f.topic}`:f.topic;
+    const qtext=templates[(i+(phase==='post'?2:0))%templates.length](`${topic} · ประเด็นที่ ${i+1}`);
+    const key=`${lesson.id}|${phase}|${qtext}`;
+    if(existing.has(key))continue;
+    QUESTIONS.push({subject:lesson.subject,level:lesson.level,lesson:lesson.id,phase,q:qtext,opts,a:correct,why:`คำตอบนี้ถูกต้องตามเนื้อหาเรื่อง${f.topic} เพราะ ${f.statement}.`});
+    existing.add(key);
+   }
+  });
+ });
+})();
+
+// Flashcards: derive usable front/back cards from actual lesson content.
+let flashDeck=[],flashIndex=0,flashRevealed=false;
+function buildFlashDeck(){
+ const subject=$('#flashSubject').value,level=$('#flashLevel').value,lessonId=$('#flashLesson').value;
+ const selected=LESSONS.filter(l=>(subject==='all'||l.subject===subject)&&(level==='all'||l.level===level)&&(lessonId==='all'||l.id===lessonId));
+ const deck=[];
+ selected.forEach(l=>{
+  (l.sections||[]).forEach(sec=>{
+   if(sec.p)deck.push({lesson:l.id,title:l.title,front:sec.h,back:sec.p});
+   (sec.list||[]).forEach((item,i)=>deck.push({lesson:l.id,title:l.title,front:`${sec.h} · จำข้อ ${i+1}`,back:item}));
+   if(sec.formula)deck.push({lesson:l.id,title:l.title,front:`สูตร: ${sec.h}`,back:sec.formula});
+   if(sec.example)deck.push({lesson:l.id,title:l.title,front:`ตัวอย่าง: ${sec.h}`,back:sec.example});
+  });
+  (l.summary||[]).forEach((item,i)=>deck.push({lesson:l.id,title:l.title,front:`สรุปท้ายบท · ประเด็น ${i+1}`,back:item}));
+ });
+ return deck;
+}
+function renderFlashcard(){
+ const stage=$('#flashStage'),counter=$('#flashCounter');
+ if(!flashDeck.length){stage.innerHTML='<div class="callout">ยังไม่มีบัตรคำในตัวกรองนี้ ลองเลือกทุกวิชาหรือเปลี่ยนบทเรียน</div>';counter.textContent='0 / 0';return}
+ const card=flashDeck[flashIndex];
+ stage.innerHTML=`<button type="button" class="flashcard ${flashRevealed?'is-flipped':''}" id="activeFlashcard" aria-label="กดเพื่อพลิกบัตรคำ"><span class="flash-card-meta">${card.title} · ${flashIndex+1} / ${flashDeck.length}</span><span class="flash-card-label">${flashRevealed?'คำอธิบาย':'ลองตอบก่อน แล้วกดเพื่อดูคำตอบ'}</span><strong>${flashRevealed?card.back:card.front}</strong><span class="flash-card-hint">${flashRevealed?'กดเพื่อกลับไปดูคำถาม':'แตะบัตรเพื่อพลิกดูคำตอบ ↻'}</span></button>`;
+ counter.textContent=`${flashIndex+1} / ${flashDeck.length}`;
+ $('#activeFlashcard').onclick=()=>{flashRevealed=!flashRevealed;renderFlashcard()};
+}
+function refreshFlashLessons(){
+ const subject=$('#flashSubject').value,level=$('#flashLevel').value,sel=$('#flashLesson');
+ const previous=sel.value;
+ const list=LESSONS.filter(l=>(subject==='all'||l.subject===subject)&&(level==='all'||l.level===level));
+ sel.innerHTML='<option value="all">ทุกบทเรียน</option>'+list.map(l=>`<option value="${l.id}">${l.title} · ${l.level}</option>`).join('');
+ if(list.some(l=>l.id===previous))sel.value=previous;
+}
+function initFlashcards(){
+ if(!$('#flashSubject'))return;
+ refreshFlashLessons();
+ const requested=sessionStorage.getItem('learnlab-flash-lesson');
+ if(requested&&LESSONS.some(l=>l.id===requested)){
+  const l=LESSONS.find(x=>x.id===requested);$('#flashSubject').value=l.subject;$('#flashLevel').value=l.level;refreshFlashLessons();$('#flashLesson').value=requested;sessionStorage.removeItem('learnlab-flash-lesson');
+ }
+ flashDeck=buildFlashDeck();flashIndex=0;flashRevealed=false;renderFlashcard();
+}
+['flashSubject','flashLevel','flashLesson'].forEach(id=>$('#'+id)?.addEventListener('change',()=>{
+ if(id!=='flashLesson')refreshFlashLessons();flashDeck=buildFlashDeck();flashIndex=0;flashRevealed=false;renderFlashcard();
+}));
+$('#flashPrev')?.addEventListener('click',()=>{if(!flashDeck.length)return;flashIndex=(flashIndex-1+flashDeck.length)%flashDeck.length;flashRevealed=false;renderFlashcard()});
+$('#flashNext')?.addEventListener('click',()=>{if(!flashDeck.length)return;flashIndex=(flashIndex+1)%flashDeck.length;flashRevealed=false;renderFlashcard()});
+
+// Calculator handlers with validation, units and worked steps.
+function readPositive(id,label,allowZero=false){const el=$('#'+id),v=Number(el.value);if(el.value.trim()===''||!Number.isFinite(v)||(allowZero?v<0:v<=0)){toast(`กรุณากรอก${label}ให้${allowZero?'เป็นศูนย์หรือค่าบวก':'มากกว่าศูนย์'}`);el.focus();return null}return v}
+function showCalc(id,html){$('#'+id).innerHTML=html}
+$('#calcSpeed')?.addEventListener('click',()=>{const d=readPositive('calcDistance','ระยะทาง',true),t=readPositive('calcTime','เวลา');if(d===null||t===null)return;const v=d/t;showCalc('speedResult',`<b>อัตราเร็วเฉลี่ย = ${v.toFixed(4)} m/s</b><br>วิธีคิด: ระยะทาง ÷ เวลา = ${d} ÷ ${t} = ${v.toFixed(4)} m/s`)});
+$('#calcAcceleration')?.addEventListener('click',()=>{const f=Number($('#calcForce').value),m=readPositive('calcMass','มวล');if($('#calcForce').value.trim()===''||!Number.isFinite(f)||m===null){if($('#calcForce').value.trim()==='')toast('กรุณากรอกแรงลัพธ์');return}const a=f/m;showCalc('forceResult',`<b>ความเร่ง = ${a.toFixed(4)} m/s²</b><br>วิธีคิด: a = F/m = ${f}/${m} = ${a.toFixed(4)} m/s²`)});
+$('#calcMoles')?.addEventListener('click',()=>{const mass=readPositive('calcGrams','มวลสาร',true),mm=readPositive('calcMolarMass','มวลโมลาร์');if(mass===null||mm===null)return;const n=mass/mm;showCalc('moleResult',`<b>จำนวนโมล = ${n.toFixed(4)} mol</b><br>วิธีคิด: n = m/M = ${mass}/${mm} = ${n.toFixed(4)} mol`)});
+$('#calcMolarity')?.addEventListener('click',()=>{const n=readPositive('calcAmount','จำนวนโมล',true),v=readPositive('calcVolume','ปริมาตร');if(n===null||v===null)return;const M=n/v;showCalc('molarityResult',`<b>ความเข้มข้น = ${M.toFixed(4)} mol/L</b><br>วิธีคิด: C = n/V = ${n}/${v} = ${M.toFixed(4)} mol/L`)});
+
 function renderQuizList(){
  const subject=$('#quizSubject').value,level=$('#quizLevel').value,phase=$('#quizPhase').value;
  const available=LESSONS.filter(l=>(subject==='all'||l.subject===subject)&&(level==='all'||l.level===level));

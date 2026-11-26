@@ -53,3 +53,23 @@
 - เพิ่มการบันทึกความคืบหน้าการอ่านบทเรียนไว้ในเบราว์เซอร์
 - ปรับข้อความจำนวนข้อสอบให้ตรงกับชุดคำถามของแต่ละบทและช่วงก่อน/หลังเรียน
 - ปรับคำค้นหาวิดีโอให้ระบุระดับชั้นและภาษาไทยชัดเจนขึ้น (ยังเป็นลิงก์ค้นหา ไม่ใช่วิดีโอที่คัดเลือก/ฝังไว้)
+
+## การปรับปรุงเนื้อหาและคลิปวิดีโอ (รอบเพิ่มเติม)
+- เพิ่มหัวข้ออธิบายเชิงลึกแบบเฉพาะเรื่องให้ครบทั้ง 48 บท พร้อมตัวอย่าง วิธีคิด สูตร หรือประเด็นเชื่อมโยงตามความเหมาะสม
+- เนื้อหาส่วนเพิ่มเติมจะแสดงต่อจากเนื้อหาเดิม และถูกรวมในระบบบัตรคำทบทวนด้วย
+- เปลี่ยนวิดีโอจากลิงก์ค้นหา YouTube เป็นลิงก์ไปยังคลิปเฉพาะที่ตรวจสอบหัวข้อและ URL แล้ว
+- ขณะนี้มีคลิปที่คัดเลือกและตรวจสอบแล้วในบางบทเท่านั้น บทอื่นจะแสดงข้อความแจ้งว่ายังไม่มีคลิปที่ตรวจสอบแล้ว แทนการส่งผู้ใช้ไปหน้าค้นหา
+- รายการวิดีโอสามารถเพิ่มได้ภายหลังในตัวแปร `LESSON_VIDEOS` ท้ายไฟล์ `data.js` โดยใช้รูปแบบ `{title, url, source}`
+
+หมายเหตุ: ควรตรวจสอบความถูกต้องของเนื้อหาและความพร้อมใช้งานของวิดีโออีกครั้งก่อนนำไปใช้เป็นเอกสารการเรียนการสอนอย่างเป็นทางการ ลิงก์ YouTube เป็นของเจ้าของช่องและอาจเปลี่ยนแปลงได้
+
+## Update 26 November 2026 – interactive study tools
+
+- All 48 lessons now include an additional subject-specific section: **แนวทางคิดและตรวจคำตอบ**.
+- The quiz bank is expanded at runtime to **20 questions per lesson for the pre-test and 20 for the post-test** (1,920 questions across 48 lessons). Existing authored questions are retained; new review questions are built from the lesson goals, explanations, examples, formulas, summaries, and common mistakes. Treat these as practice questions and review the explanations after submitting.
+- Flashcards now build a deck from lesson headings, explanations, key points, formulas, examples, and summaries. Subject, level, and lesson filters work; cards flip and the previous/next controls move through the deck.
+- The four calculators (average speed, Newton's second law, amount of substance, and molarity) now validate input and show the formula and calculation steps.
+- Video cards use direct YouTube watch links, not YouTube search queries. There are direct links for 28 of the 48 lessons; lessons without a verified direct clip are labelled as not yet available rather than being sent to a search page.
+- GitHub Pages is static hosting. Review submissions and learning progress are stored in the visitor's own browser unless a backend or external form service is connected.
+
+A number of direct video URLs were selected from OnDemand's public high-school free-trial video library: https://www.ondemand.in.th/free-trial-%E0%B8%A1-%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%A2/
