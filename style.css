@@ -38,3 +38,23 @@ body{background:#f3eff3}
 
 /* Video learning hub */
 .video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.video-library-card,.video-link-card{background:#f9f6f8;border:1px solid #e7dfe7;border-radius:16px;padding:17px;display:flex;flex-direction:column;gap:9px;text-decoration:none;color:var(--ink)}.video-library-card h3{font-size:15px;margin:4px 0}.video-library-card p{font-size:12px;color:var(--muted);line-height:1.7;margin:0}.video-subject{font-size:10px;font-weight:700;color:#9b78aa}.video-subject.science{color:#bc7192}.video-link-list{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0}.video-link-list a,.video-search-all{font-size:11px;color:#8b6ba8;text-decoration:none;background:#f2eaf6;border:1px solid #e8ddef;border-radius:9px;padding:8px 10px}.video-link-list a:hover,.video-search-all:hover{background:#eadff1}.video-note{padding:12px 15px;background:#f2edf5;border:1px solid #e8dfea;border-radius:12px;color:#85738f;font-size:12px;line-height:1.75;margin:10px 0 18px}.lesson-videos{background:linear-gradient(145deg,#f5edf4,#f2eef6);border-color:#e8dfe9}.lesson-video-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}.video-link-card b{font-size:12px}.video-link-card small{font-size:10px;color:#9b8da1}.lesson-videos .video-search-all{display:inline-flex;margin-top:6px}.video-link-card:hover{border-color:#cdb9de;transform:translateY(-1px)}@media(max-width:760px){.video-grid,.lesson-video-links{grid-template-columns:1fr}}
+
+/* LearnLab v2: active-recall and calculator additions */
+.flash-controls,.calculator-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0}
+.flash-controls label,.calculator-card label{display:flex;flex-direction:column;gap:7px;color:var(--text,#51465c);font-weight:600}
+.flash-controls select,.calculator-card input{width:100%;padding:12px 13px;border:1px solid #eadfee;border-radius:13px;background:#fff;color:#51465c;font:inherit}
+.flashcard-stage{max-width:760px;margin:26px auto 14px}
+.flashcard{width:100%;min-height:270px;border:1px solid #ead9ee;border-radius:24px;background:linear-gradient(135deg,#fff7fb,#f5f0ff);padding:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;color:#51465c;cursor:pointer;box-shadow:0 12px 35px #9b7aa51a}
+.flashcard.revealed{background:linear-gradient(135deg,#f4fbf8,#f8f2ff)}
+.flashcard strong{font-size:clamp(19px,3vw,25px);line-height:1.7;font-weight:700;white-space:pre-line}
+.flashcard small,.flash-label{color:#9a83a8;font-size:13px}
+.flash-actions{display:flex;align-items:center;justify-content:center;gap:18px;margin:18px auto 26px}
+.flash-actions button:disabled{opacity:.4;cursor:not-allowed}
+.calculator-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.calculator-card{background:#fff;border:1px solid #eee2f0;border-radius:20px;padding:23px;box-shadow:0 8px 24px #876b8d0d;display:flex;flex-direction:column;gap:13px}
+.calculator-card h2{font-size:21px;margin:3px 0}
+.calculator-card p{color:#81758b;margin:0 0 5px}
+.calculator-card .quiz-submit{align-self:flex-start;margin-top:4px}
+.calc-result{background:#f8f3fa;border-radius:12px;padding:13px;color:#685477;line-height:1.6;min-height:48px}
+.study-progress{background:#fffafd;border:1px solid #f0e3f0;border-radius:18px;padding:20px}
+@media(max-width:760px){.flash-controls,.calculator-grid{grid-template-columns:1fr}.flashcard{min-height:230px;padding:24px}.flash-actions{gap:9px}}
