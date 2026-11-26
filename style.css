@@ -3,3 +3,38 @@
 
 .level-select{width:auto;min-width:145px;max-width:170px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
 @media(max-width:720px){.filter-row{flex-wrap:wrap}.level-select{max-width:100%}}
+/* Added feedback/review section and richer lesson reading layout */
+.section-sub{font-size:1.02rem;color:#78618f;margin:8px 0 10px;font-weight:700}
+.feedback-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:18px;margin:20px 0}
+.feedback-card{background:#fff;border:1px solid #eee6f3;border-radius:22px;padding:24px;box-shadow:0 8px 24px rgba(82,48,112,.04);margin-bottom:18px}
+.feedback-card h2{margin:0 0 12px;font-size:1.25rem}.feedback-card p{color:#777184;line-height:1.75}
+.feedback-card label{display:block;font-size:.92rem;font-weight:700;margin:14px 0;color:#5d526d}
+.feedback-card input,.feedback-card select,.feedback-card textarea{display:block;width:100%;margin-top:7px;border:1px solid #e5dceb;border-radius:12px;padding:11px 13px;font:inherit;background:#fcfbfe;color:#4e455d;box-sizing:border-box;outline:none}
+.feedback-card input:focus,.feedback-card select:focus,.feedback-card textarea:focus{border-color:#b59ad2;box-shadow:0 0 0 3px #f0e9f7}
+.feedback-card textarea{resize:vertical}.contact-link{padding:14px 0;border-top:1px solid #f0eaf4;display:flex;flex-direction:column;gap:5px}.contact-link span{font-size:.83rem;color:#9b8aa9}.contact-link a{font-weight:700;color:#8a6bb0;text-decoration:none;overflow-wrap:anywhere}.contact-link small{font-size:.77rem;color:#aaa0b1}
+.review-wall{margin-top:12px}.review-item{padding:15px 0;border-bottom:1px solid #f0eaf4}.review-meta{display:flex;justify-content:space-between;gap:10px;align-items:center}.review-meta span{color:#e4a84f;letter-spacing:1px}.review-type{display:inline-block;margin-top:6px;padding:4px 9px;border-radius:20px;background:#f6effa;color:#8d6ba7;font-size:.76rem}.review-item p{margin:8px 0;white-space:pre-wrap;color:#5d5668}.review-item small{color:#aaa}.clear-reviews{background:#fff;border:1px solid #e7deed;border-radius:10px;padding:8px 12px;color:#8b78a0;cursor:pointer;font:inherit;font-size:.82rem}.review-wall .section-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.review-wall .section-head h2{margin-bottom:0}
+@media(max-width:850px){.feedback-grid{grid-template-columns:1fr}.feedback-card{padding:18px}.review-wall .section-head{align-items:flex-start;flex-direction:column}}
+.extension-panel{background:linear-gradient(140deg,#fcf7ff,#f8fcfb);border-color:#e9dff2}.extension-panel h2{color:#8667a5}
+
+/* Quick-access feedback button and visible review channel */
+.feedback-float{position:fixed;right:22px;bottom:22px;z-index:60;background:#d982a5;color:#fff;text-decoration:none;font-weight:700;font-size:13px;padding:13px 17px;border-radius:30px;box-shadow:0 8px 24px #c76f9438;transition:.2s}.feedback-float:hover{transform:translateY(-3px);box-shadow:0 12px 28px #c76f9444}.feedback-float:focus-visible{outline:3px solid #8a6bb0;outline-offset:3px}@media(max-width:760px){.feedback-float{right:14px;bottom:14px;padding:11px 14px;font-size:12px}}
+
+/* Strong, always-visible feedback access */
+.header-feedback{display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;margin-right:9px;border-radius:11px;background:#fff0f5;border:1px solid #f2d8e4;color:#b95f86;text-decoration:none;font-weight:700;font-size:12px;white-space:nowrap}.header-feedback:hover{background:#fbe2ec}.top-actions{display:flex;align-items:center;gap:6px}.feedback-float{position:fixed;right:20px;bottom:20px;z-index:9999;background:#d16f99;color:#fff!important;text-decoration:none!important;font-weight:800;font-size:14px;padding:14px 20px;border-radius:32px;box-shadow:0 9px 26px rgba(181,87,131,.35);display:block;visibility:visible;opacity:1}
+@media(max-width:760px){.header-feedback{font-size:11px;padding:8px 10px;margin-right:5px}.today-pill{display:none}.feedback-float{right:12px;bottom:12px;padding:12px 16px;font-size:12px}}
+
+/* Softer, less glaring theme: muted lavender-gray surfaces instead of bright white */
+:root{--paper:#f6f2f5;--line:#e7dfe7;--pink-pale:#f4e8ee;--ink:#443b4a;--shadow:0 10px 30px rgba(91,72,92,.07)}
+body{background:#f3eff3}
+.sidebar{background:#f5f1f5}
+.topbar{background:rgba(245,241,245,.92)}
+.hero{background:linear-gradient(112deg,#f3e7ed 0%,#f5edf0 48%,#eee8f4 100%);border-color:#e9dce7}
+.subject-card,.tool-card,.lesson-card,.lesson-section,.formula-card,.quiz-panel,.download-card,.feedback-card,.searchbox,.small-search,.quiz-pick,.level-select{background-color:#f9f6f8}
+.science-card{background:#f7edf2}.math-card{background:#f1edf6}
+.lesson-hero,.quiz-intro{background:linear-gradient(110deg,#f2e8ee,#eee9f4)}
+.feedback-card input,.feedback-card select,.feedback-card textarea{background:#f7f3f7}
+.feedback-card{border-color:#e7dfe9}
+.feedback-float{box-shadow:0 8px 22px rgba(145,95,128,.22)}
+
+/* Video learning hub */
+.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.video-library-card,.video-link-card{background:#f9f6f8;border:1px solid #e7dfe7;border-radius:16px;padding:17px;display:flex;flex-direction:column;gap:9px;text-decoration:none;color:var(--ink)}.video-library-card h3{font-size:15px;margin:4px 0}.video-library-card p{font-size:12px;color:var(--muted);line-height:1.7;margin:0}.video-subject{font-size:10px;font-weight:700;color:#9b78aa}.video-subject.science{color:#bc7192}.video-link-list{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0}.video-link-list a,.video-search-all{font-size:11px;color:#8b6ba8;text-decoration:none;background:#f2eaf6;border:1px solid #e8ddef;border-radius:9px;padding:8px 10px}.video-link-list a:hover,.video-search-all:hover{background:#eadff1}.video-note{padding:12px 15px;background:#f2edf5;border:1px solid #e8dfea;border-radius:12px;color:#85738f;font-size:12px;line-height:1.75;margin:10px 0 18px}.lesson-videos{background:linear-gradient(145deg,#f5edf4,#f2eef6);border-color:#e8dfe9}.lesson-video-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}.video-link-card b{font-size:12px}.video-link-card small{font-size:10px;color:#9b8da1}.lesson-videos .video-search-all{display:inline-flex;margin-top:6px}.video-link-card:hover{border-color:#cdb9de;transform:translateY(-1px)}@media(max-width:760px){.video-grid,.lesson-video-links{grid-template-columns:1fr}}
