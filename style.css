@@ -66,3 +66,9 @@ body{background:#f3eff3}
 .flashcard strong{max-width:650px}
 .calc-result b{display:block;margin-bottom:5px;color:#59436e}
 .calculator-card input:focus,.flash-controls select:focus{outline:2px solid #cdb5df;outline-offset:1px}
+
+/* LearnLab v5: readable flashcard prompts and video search fallbacks */
+.flashcard strong{overflow-wrap:anywhere;white-space:pre-line}
+.video-search-fallback{border-style:dashed;background:linear-gradient(135deg,#fffafc,#f8f5ff)}
+.lesson-overview{background:linear-gradient(135deg,#fffafd,#f8f5ff);border-color:#eadff0}
+.lesson-overview p{line-height:1.9}
